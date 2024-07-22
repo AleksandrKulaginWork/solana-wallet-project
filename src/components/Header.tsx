@@ -26,7 +26,7 @@ const Header = () => {
     try {
       const walletBalance = await connection.getBalance(publicKey)
       dispatch(setBalance(walletBalance / 1e9))
-      dispatch(setError(null))
+      dispatch(setError(''))
     } catch (error) {
       dispatch(setBalance(null))
       dispatch(setError('Ошибка получения баланса'))
@@ -73,12 +73,16 @@ const Header = () => {
 
     <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-center text-gray-700">Solana</h1>
     <div className="flex justify-center mb-4">
-      <button
+      {pathname === '/' ? (
+        <button
         onClick={createWallet}
         className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
       >
         Создать новый кошелек
       </button>
+      ): <p className="text-lg md:text-xl lg:text-2xl font-medium text-gray-700">
+        Транзакция
+        </p> }
     </div>
     {wallet && (
       <div className="text-center">
