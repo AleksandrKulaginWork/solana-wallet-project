@@ -47,7 +47,3 @@ const walletSlice = createSlice({
 
 export const { setWallet, setBalance, setError, setAmount, setRecipient, setTransactionStatus } = walletSlice.actions
 export default walletSlice.reducer
-
-
-
-//   const [transactionStatus, setTransactionStatus] = useState<string | null>(null);
