@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Установка и настройка приложения Solana на Next.js
 
-## Getting Started
+## Поднятие локальной ноды Solana
 
-First, run the development server:
+1. Установка Solana CLI:
+    ```bash
+    sh -c "$(curl -sSfL https://release.solana.com/v1.18.18/install)"
+    ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. Запустить локальную ноду:
+    ```bash
+    solana-test-validator
+    ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Подключить Solana CLI к локальной ноде:
+    ```bash
+    solana config set --url localhost
+    ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Сборка приложения
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Установлены зависимостей:
+    ```bash
+    npm install
+    ```
 
-## Learn More
+2. Собрать приложение:
+    ```bash
+    npm run build
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+3. Запустите приложение:
+    ```bash
+    npm run dev
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Пополнение кошелька через CLI
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Сгенерировать новый кошелек:
+    ```bash
+    solana-keygen new --outfile ~/my-wallet.json
+    ```
 
-## Deploy on Vercel
+2. Установить переменную окружения для кошелька:
+    ```bash
+    export SOLANA_WALLET_PROVIDER=~/my-wallet.json
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Пополните кошелек средствами:
+    ```bash
+    solana airdrop 100
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Подтверждение транзакции
+
+1. Создание и отправка транзакции:
+    ```bash
+    solana transfer <recipient-address> 1 --from ~/my-wallet.json
+    ```
+
+2. Проверить статус транзакции:
+    ```bash
+    solana confirm <transaction-signature>
+    ```
+    Заменить `<transaction-signature>` на подпись транзакции, которую получили при ее создании.
